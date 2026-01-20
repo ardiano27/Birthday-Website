@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, My Favorite Person!</title>
+    <title>Happy 19th Birthday, Seyyii!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- RESET & VARIABLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #ff85c1;
-            --secondary: #ffadd6;
-            --accent: #ffebf5;
-            --dark: #6e2e48;
-            --glass: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --shadow: 0 8px 32px 0 rgba(255, 100, 150, 0.2);
+            --primary: #ff7eb3;
+            --secondary: #ff758c;
+            --accent-glow: rgba(255, 182, 193, 0.6);
+            --text-dark: #4a2c3d;
+            --text-light: #fff;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 15px 35px rgba(255, 126, 179, 0.25);
         }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-            background-image: radial-gradient(circle at 10% 20%, rgb(255, 228, 240) 0%, rgb(232, 232, 255) 90%);
-            color: var(--dark);
+            /* Animated Gradient Background */
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #a1c4fd);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
             position: relative;
         }
 
-        /* --- BACKGROUND STICKERS (Kirby, Potato, etc) --- */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- FLOATING CHIBI ASSETS --- */
         .sticker-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,423 +49,394 @@
 
         .sticker {
             position: absolute;
-            font-size: 2.5rem;
-            opacity: 0.6;
-            animation: floatAni 10s infinite ease-in-out;
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+            width: 80px; /* Adjust size of chibis */
+            height: auto;
+            opacity: 0.8;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            animation: floatAni 12s infinite ease-in-out;
         }
 
-        /* Posisi Stiker Random */
-        .s1 { top: 10%; left: 5%; animation-delay: 0s; } /* Kirby-ish */
-        .s2 { top: 20%; right: 10%; animation-delay: 2s; font-size: 2rem; } /* Potato */
-        .s3 { bottom: 15%; left: 8%; animation-delay: 4s; } /* Cat */
-        .s4 { bottom: 25%; right: 5%; animation-delay: 1s; } /* Love */
-        .s5 { top: 50%; left: 2%; animation-delay: 3s; font-size: 1.8rem; } /* Axolotl */
-        .s6 { top: 15%; left: 50%; animation-delay: 5s; } /* Cake */
-        .s7 { bottom: 5%; right: 30%; animation-delay: 2.5s; } /* Gecko */
-        .s8 { top: 40%; right: 2%; animation-delay: 1.5s; } /* Chinchilla */
-
+        /* Random Positions & Delays for Natural Float */
+        .s1 { top: 10%; left: 5%; animation-delay: 0s; width: 90px; } /* Axolotl */
+        .s2 { top: 25%; right: 8%; animation-delay: 2s; } /* Sheep */
+        .s3 { bottom: 20%; left: 10%; animation-delay: 4s; width: 100px; } /* Cat */
+        .s4 { bottom: 30%; right: 15%; animation-delay: 1s; width: 70px;} /* Banana Cat */
+        .s5 { top: 55%; left: 5%; animation-delay: 3s; width: 60px; } /* Frog */
+        .s6 { top: 15%; left: 50%; animation-delay: 5s; opacity: 0.6; } /* Extra deco */
+        
         @keyframes floatAni {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(10deg); }
+            0%, 100% { transform: translateY(0) rotate(-5deg) scale(1); }
+            50% { transform: translateY(-40px) rotate(5deg) scale(1.05); }
         }
 
-        /* --- MAIN LAYOUT --- */
+        /* --- MAIN LAYOUT & SHARED COMPONENTS --- */
         .main-wrapper {
             position: relative;
             z-index: 2;
-            max-width: 600px; /* Mobile First View like an App */
+            max-width: 550px; /* App-like feeling */
             margin: 0 auto;
             padding: 20px;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center; /* Center vertically if single section */
         }
 
-        /* --- SECTIONS TRANSITION --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 2px solid var(--glass-border);
+            border-radius: 35px;
+            padding: 35px 25px;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+        }
+
+        /* Section Transitions */
         .section {
             display: none;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
+            transform: scale(0.95) translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
         }
         
         .section.active {
             display: block;
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
-        /* --- HERO SECTION --- */
-        .hero-card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 2px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            margin-top: 5vh;
-        }
-
-        h1 {
+        /* Typography */
+        h1.dancing-font {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #ff3399, #a64dff);
+            font-size: 3.8rem;
+            background: linear-gradient(to right, var(--primary), #c471ed, #12c2e9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            line-height: 1.2;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(255, 126, 179, 0.3));
         }
 
-        .avatar-glow {
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 50%;
-            margin: 0 auto 20px;
+        h2, h3 { font-family: 'Quicksand', sans-serif; }
+
+        /* Buttons */
+        .btn-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 133, 193, 0.5);
-            position: relative;
+            gap: 15px;
+            margin-top: 35px;
         }
 
-        .avatar-glow img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--secondary);
-        }
-
-        .hero-text {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        /* --- BUTTONS --- */
-        .btn-primary {
-            background: linear-gradient(90deg, #ff85c1, #ff66b2);
-            color: white;
+        .btn-primary, .btn-secondary {
             border: none;
-            padding: 15px 40px;
+            padding: 14px 32px;
             border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 102, 178, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 10px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 102, 178, 0.6);
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            box-shadow: 0 8px 20px -5px rgba(255, 117, 140, 0.5);
         }
 
-        /* --- SPOTIFY STYLE PLAYER --- */
-        .spotify-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            margin-top: 20px;
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-dark);
+            border: 2px solid var(--primary);
         }
 
-        .player-header {
-            text-align: center;
-            margin-bottom: 20px;
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px -5px rgba(255, 117, 140, 0.7);
         }
 
-        .album-art {
-            width: 200px;
-            height: 200px;
-            background: #ddd;
-            border-radius: 20px;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        /* --- SECTION SPECIFIC STYLES --- */
+
+        /* Hero */
+        .avatar-glow-container {
             position: relative;
-            overflow: hidden;
+            width: 180px; height: 180px; margin: 0 auto 25px;
         }
-        
-        .album-art img {
+        .avatar-glow {
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 40px var(--accent-glow);
+            object-fit: cover;
+            position: relative; z-index: 2;
+        }
+        .avatar-crown {
+            position: absolute; top: -25px; right: 10px; font-size: 2.5rem; color: gold; z-index: 3;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+            transform: rotate(15deg);
+        }
+
+        /* Music Player */
+        .album-art-wrapper {
+            width: 220px; height: 220px; margin: 20px auto;
+            border-radius: 25px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .album-art-wrapper img {
             width: 100%; height: 100%; object-fit: cover;
-            transition: transform 10s linear;
+            transition: transform 0.5s ease-in-out;
         }
-        
-        .album-art.playing img {
-            transform: scale(1.1);
+        .album-art-wrapper.playing img { transform: scale(1.1); }
+
+        /* Music Time Progress */
+        .progress-container {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; margin: 25px 0 10px;
+            font-size: 0.85rem; color: var(--text-dark); font-weight: 600;
         }
-
-        .song-info h2 { font-size: 1.5rem; color: var(--dark); margin-bottom: 5px; }
-        .song-info p { font-size: 1rem; color: #888; }
-
         .progress-area {
-            height: 6px;
-            background: #ffd1e8;
-            border-radius: 50px;
-            margin: 20px 0 10px;
-            cursor: pointer;
-            position: relative;
+            height: 8px; flex-grow: 1; background: rgba(255, 126, 179, 0.3);
+            border-radius: 50px; cursor: pointer; position: relative;
         }
-
         .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--dark);
-            border-radius: 50px;
-            position: relative;
+            height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 50px; position: relative; transition: width 0.1s linear;
         }
-
         .progress-bar::after {
-            content: '';
-            position: absolute;
-            right: -5px; top: -4px;
-            width: 14px; height: 14px;
-            background: var(--dark);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.2s;
+            content: ''; position: absolute; right: -6px; top: -50%; transform: translateY(50%);
+            width: 16px; height: 16px; background: var(--secondary);
+            border: 3px solid white; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0; transition: opacity 0.2s;
         }
-        
         .progress-area:hover .progress-bar::after { opacity: 1; }
 
+        /* Controls */
         .controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 15px; margin-top: 20px;
         }
-
-        .controls i {
-            font-size: 1.5rem;
-            color: #999;
-            cursor: pointer;
-            transition: color 0.3s;
+        .controls i { font-size: 1.4rem; color: #888; cursor: pointer; transition: 0.3s; }
+        .controls i:hover { color: var(--primary); }
+        .play-pause-btn {
+            width: 65px; height: 65px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 20px rgba(255, 126, 179, 0.4);
         }
-        
-        .controls i:hover { color: var(--dark); }
+        .play-pause-btn i { color: white; font-size: 1.8rem; margin-left: 3px; }
 
-        .play-pause {
-            width: 60px; height: 60px;
-            background: var(--dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(110, 46, 72, 0.3);
-        }
-
-        .play-pause i { color: white; font-size: 1.8rem; }
-
-        /* Playlist Items */
-        .playlist {
-            margin-top: 30px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
+        /* Playlist */
+        .playlist { margin-top: 25px; max-height: 180px; overflow-y: auto; padding-right: 5px; }
         .playlist::-webkit-scrollbar { width: 4px; }
-        .playlist::-webkit-scrollbar-thumb { background: #ffadd6; border-radius: 4px; }
-
+        .playlist::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
         .track-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 5px;
+            display: flex; align-items: center; padding: 10px;
+            border-radius: 15px; cursor: pointer; transition: 0.2s; margin-bottom: 8px;
+            background: rgba(255,255,255,0.3);
         }
-
-        .track-item:hover { background: rgba(255, 133, 193, 0.1); }
-        .track-item.active { background: rgba(255, 133, 193, 0.2); }
-        .track-item.active .track-title { color: var(--dark); font-weight: 700; }
-
-        .track-img { width: 40px; height: 40px; border-radius: 8px; margin-right: 15px; background: #eee; }
+        .track-item.active { background: white; box-shadow: 0 5px 15px rgba(255, 126, 179, 0.15); }
+        .track-img { width: 45px; height: 45px; border-radius: 10px; margin-right: 15px; background-size: cover; }
         .track-info { flex: 1; }
-        .track-title { font-size: 0.95rem; font-weight: 600; color: #555; }
-        .track-artist { font-size: 0.8rem; color: #999; }
-        .music-wave { height: 20px; width: 20px; display: none; }
-        .track-item.active .music-wave { display: block; }
+        .track-info h4 { font-size: 0.95rem; margin-bottom: 2px; color: var(--text-dark); }
+        .track-info p { font-size: 0.8rem; color: #666; }
+        .playing-indicator { color: var(--primary); display: none; animation: pulse 1.5s infinite; }
+        .track-item.active .playing-indicator { display: block; }
 
-        /* --- GALLERY SECTION (POLAROID) --- */
+        /* Gallery */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            padding-bottom: 30px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px;
         }
-
         .polaroid {
-            background: white;
-            padding: 15px 15px 50px 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transform: rotate(-2deg);
-            transition: all 0.3s;
-            border-radius: 4px;
-            position: relative;
+            background: white; padding: 10px 10px 40px 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1); border-radius: 4px;
+            transform: rotate(-3deg); transition: all 0.4s ease; position: relative;
         }
-
-        .polaroid:nth-child(even) { transform: rotate(2deg); margin-top: 20px; }
-        .polaroid:hover { transform: scale(1.05) rotate(0) !important; z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
-
-        .polaroid img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 2px;
-            background: #eee;
-        }
-
+        .polaroid:nth-child(even) { transform: rotate(3deg); margin-top: 15px; }
+        .polaroid:hover { transform: scale(1.08) rotate(0) !important; z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 2px; filter: saturate(1.1); }
         .caption {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem;
-            color: #444;
-        }
-        
-        .gallery-intro {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .gallery-intro h2 {
-            font-family: 'Dancing Script';
-            font-size: 3rem;
-            color: var(--dark);
+            position: absolute; bottom: 12px; left: 0; width: 100%; text-align: center;
+            font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #555;
         }
 
-        /* --- FOOTER --- */
-        .final-message {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 30px;
-            margin-top: 40px;
-            box-shadow: var(--shadow);
+        /* --- FINISH SECTION (The Grand Finale) --- */
+        .finish-content { text-align: center; padding: 40px 20px; }
+        .big-number {
+            font-size: 10rem; line-height: 1; font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(to bottom right, #ff7eb3, #ff758c, #f6d365);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(255, 118, 136, 0.5));
+            animation: pulseBig 3s infinite ease-in-out;
+        }
+        .finish-name {
+            font-family: 'Dancing Script', cursive; font-size: 4.5rem;
+            color: var(--text-dark); margin-top: -30px; display: block;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+        .final-wish {
+            font-size: 1.2rem; line-height: 1.6; color: #555; margin: 30px 0;
+            background: rgba(255,255,255,0.5); padding: 20px; border-radius: 20px;
         }
 
-        /* Custom Emoji CSS for Specific Requirements */
-        .kirby-style { filter: hue-rotate(280deg); } 
-        
+        @keyframes pulseBig {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive fixes */
         @media (max-width: 480px) {
-            h1 { font-size: 2.5rem; }
-            .hero-card { padding: 30px 15px; }
+            h1.dancing-font { font-size: 3rem; }
+            .gallery-grid { grid-template-columns: 1fr; /* Single column on small phones */ }
+            .polaroid img { height: 220px; }
+            .big-number { font-size: 8rem; }
+            .finish-name { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="sticker-container">
-        <div class="sticker s1">('^')></div> <div class="sticker s2">🥔</div> <div class="sticker s3">🐈</div> <div class="sticker s4">❤️</div> <div class="sticker s5">🦎</div> <div class="sticker s6">🎂</div> <div class="sticker s7">🦉</div> <div class="sticker s8">🍫</div> <div class="sticker s1" style="top:80%; left:80%">🐀</div> </div>
+        <img src="assets/photo/1.png" class="sticker s1" alt="Cute Axolotl">
+        <img src="assets/photo/2.png" class="sticker s2" alt="Fluffy Sheep">
+        <img src="assets/photo/3.png" class="sticker s3" alt="Cat">
+        <img src="assets/photo/4.png" class="sticker s4" alt="Banana Cat">
+        <img src="assets/photo/5.png" class="sticker s5" alt="Frog">
+        <img src="assets/photo/6.png" class="sticker s6" alt="Extra Deco">
+        <div class="sticker s6" style="font-size: 3rem;">✨</div>
+    </div>
 
     <div class="main-wrapper">
         
         <div class="section active" id="sec-hero">
-            <div class="hero-card">
-                <div class="avatar-glow">
-                    <img src="https://ui-avatars.com/api/?name=Princess&background=ffadd6&color=fff&size=200" alt="Profile" id="mainPhoto">
+            <div class="glass-card" style="text-align: center;">
+                <div class="avatar-glow-container">
+                    <i class="fas fa-crown avatar-crown"></i>
+                    <img src="https://ui-avatars.com/api/?name=Seyyii&background=ffadd6&color=fff&size=200" alt="Seyyii Profile" class="avatar-glow">
                 </div>
-                <h1>Happy Birthday!</h1>
-                <p class="hero-text">Untuk wanita paling istimewa yang kepribadiannya sehangat musim semi dan semanis cokelat. 🌸🥔✨</p>
+                <h1 class="dancing-font">Happy Birthday!</h1>
+                <p style="font-size: 1.2rem; color: #555; margin-bottom: 30px;">
+                    Untuk seseorang yang membuat duniaku lebih berwarna, lebih ceria, dan penuh dengan keajaiban. ✨🌸
+                </p>
                 
-                <div style="margin: 20px 0; font-size: 2rem;">
-                    <i class="fas fa-crown" style="color: gold;"></i>
-                </div>
-
                 <button class="btn-primary" onclick="nextSection('sec-music')">
-                    Buka Hadiah Musik <i class="fas fa-music"></i>
+                    Let's Start The Party! <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
 
         <div class="section" id="sec-music">
-            <div class="spotify-card">
-                <div class="player-header">
-                    <span>PLAYING FROM YOUR HEART</span>
-                    <h3 style="margin-top:5px; font-weight:600;">Birthday Mixtape <i class="fas fa-heart" style="color:var(--primary)"></i></h3>
+            <div class="glass-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="font-weight: 700; color: var(--primary);">Birthday Mixtape <i class="fas fa-compact-disc fa-spin" style="font-size: 1rem;"></i></h2>
+                    <p style="font-size: 0.9rem; color: #777;">Lagu-lagu favoritmu, spesial hari ini.</p>
                 </div>
 
-                <div class="album-art" id="albumArt">
-                    <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=400&auto=format&fit=crop" alt="Album Art">
+                <div class="album-art-wrapper" id="albumArtWrapper">
+                    <img src="" alt="Album Art" id="mainAlbumArt">
                 </div>
 
-                <div class="song-info" style="text-align: center;">
-                    <h2 id="trackName">Seasons</h2>
-                    <p id="artistName">Wave to Earth</p>
+                <div style="text-align: center;">
+                    <h2 id="trackName" style="font-size: 1.6rem; margin-bottom: 5px;">Judul Lagu</h2>
+                    <p id="artistName" style="font-size: 1.1rem; color: var(--secondary);">Artis</p>
                 </div>
 
-                <div class="progress-area" id="progressArea">
-                    <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-container">
+                    <span id="currentTime">0:00</span>
+                    <div class="progress-area" id="progressArea">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <span id="totalDuration">0:00</span>
                 </div>
                 
                 <div class="controls">
-                    <i class="fas fa-random"></i>
-                    <i class="fas fa-step-backward" id="prevBtn"></i>
-                    <div class="play-pause" id="playPauseBtn">
+                    <i class="fas fa-random" title="Shuffle"></i>
+                    <i class="fas fa-step-backward" id="prevBtn" style="font-size: 1.8rem;"></i>
+                    <div class="play-pause-btn" id="playPauseBtn">
                         <i class="fas fa-play"></i>
                     </div>
-                    <i class="fas fa-step-forward" id="nextBtn"></i>
-                    <i class="fas fa-redo"></i>
+                    <i class="fas fa-step-forward" id="nextBtn" style="font-size: 1.8rem;"></i>
+                    <i class="fas fa-redo" title="Loop"></i>
                 </div>
 
                 <div class="playlist" id="playlist">
                     </div>
-            </div>
 
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-primary" onclick="nextSection('sec-gallery')">
-                    Lihat Kenangan Kita <i class="fas fa-camera-retro"></i>
-                </button>
+                <div class="btn-container">
+                    <button class="btn-secondary" onclick="nextSection('sec-hero')">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn-primary" onclick="nextSection('sec-gallery')">
+                        Lihat Galeri <i class="fas fa-camera"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
         <div class="section" id="sec-gallery">
-            <div class="gallery-intro">
-                <h2>Galeri Cantik</h2>
-                <p>Kumpulan potret favoritku tentangmu</p>
+            <div class="glass-card">
+                <div style="text-align: center;">
+                    <h2 class="dancing-font" style="font-size: 3rem; color: var(--primary);">Aesthetic Memories</h2>
+                    <p>Kumpulan potret cantikmu yang kusuka.</p>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="polaroid">
+                        <img src="https://images.unsplash.com/photo-1524638431109-93d95c968f03?q=80&w=300&auto=format&fit=crop" alt="Foto 1">
+                        <div class="caption">Senyum Manis :)</div>
+                    </div>
+                    <div class="polaroid">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop" alt="Foto 2">
+                        <div class="caption">Vibesnya dapet bgt!</div>
+                    </div>
+                    <div class="polaroid">
+                        <img src="https://images.unsplash.com/photo-1606225457115-9b0de873c5db?q=80&w=300&auto=format&fit=crop" alt="Foto 3">
+                        <div class="caption">Lucu banget sihh <3</div>
+                    </div>
+                     <div class="polaroid">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" alt="Foto 4">
+                        <div class="caption">My Favorite Person</div>
+                    </div>
+                </div>
+
+                <div class="btn-container" style="margin-top: 40px;">
+                    <button class="btn-secondary" onclick="nextSection('sec-music')">
+                        <i class="fas fa-arrow-left"></i> Musik
+                    </button>
+                    <button class="btn-primary" style="background: linear-gradient(90deg, #FFD700, #ffb347);" onclick="nextSection('sec-finish')">
+                        Finish Surprise! <i class="fas fa-gift"></i>
+                    </button>
+                </div>
             </div>
+        </div>
 
-            <div class="gallery-grid">
-                <div class="polaroid">
-                    <img src="assets/photo/Si Alex Kurang Ajar.jpg" alt="Foto 1">
-                    <div class="caption">Alex Kurang Ajar 😡</div>
-                </div>
+        <div class="section" id="sec-finish">
+            <div class="glass-card finish-content">
+                <i class="fas fa-birthday-cake" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
                 
-                <div class="polaroid">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop" alt="Foto 2">
-                    <div class="caption">Estetik parah!</div>
+                <h2 style="font-family: 'Quicksand'; font-weight: 700; color: #555;">Selamat Ulang Tahun Yang Ke-</h2>
+                
+                <div class="big-number">19</div>
+                
+                <span class="finish-name">Seyyii</span>
+
+                <div class="final-wish">
+                    "Semoga di usia 19 ini, kamu semakin bersinar, semakin bahagia, dan semua impianmu tercapai. Terima kasih sudah menjadi bagian terbaik dalam hidupku. I Love You! ❤️"
                 </div>
 
-                <div class="polaroid">
-                    <img src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=300&auto=format&fit=crop" alt="Foto 3">
-                    <div class="caption">My Potato <3</div>
-                </div>
-                
-                 <div class="polaroid">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" alt="Foto 4">
-                    <div class="caption">Kesayangan</div>
-                </div>
-            </div>
-
-            <div class="final-message">
-                <h3 style="color: var(--dark); margin-bottom: 15px; font-family:'Dancing Script'; font-size: 2rem;">Harapanku...</h3>
-                <p>Semoga di usiamu yang baru ini, kamu semakin bersinar seperti bintang, semakin kuat menjalani hari, dan tetap menjadi rumah ternyaman untuk pulang.</p>
-                <p style="margin-top: 15px; font-weight: bold;">I Love You! ❤️</p>
-                
-                <br>
-                <button class="btn-primary" onclick="location.reload()">
-                    Ulangi Lagi <i class="fas fa-undo"></i>
+                <button class="btn-secondary" onclick="location.reload()">
+                    Ulangi dari Awal <i class="fas fa-undo"></i>
                 </button>
             </div>
         </div>
@@ -500,7 +479,7 @@
             }
         ];
 
-        // --- SELECTORS ---
+        // --- DOM SELECTORS ---
         const mainAudio = document.getElementById("mainAudio");
         const playPauseBtn = document.getElementById("playPauseBtn");
         const prevBtn = document.getElementById("prevBtn");
@@ -509,64 +488,78 @@
         const progressBar = document.getElementById("progressBar");
         const trackName = document.getElementById("trackName");
         const artistName = document.getElementById("artistName");
-        const albumArt = document.querySelector(".album-art img");
-        const albumArtDiv = document.querySelector(".album-art");
+        const mainAlbumArt = document.getElementById("mainAlbumArt");
+        const albumArtWrapper = document.getElementById("albumArtWrapper");
         const playlistDiv = document.getElementById("playlist");
+        // New Time Selectors
+        const currentTimeSpan = document.getElementById("currentTime");
+        const totalDurationSpan = document.getElementById("totalDuration");
 
         let musicIndex = 0;
 
-        // --- LOAD PLAYLIST TO UI ---
-        function loadPlaylist() {
-            playlistDiv.innerHTML = "";
-            songs.forEach((song, index) => {
-                const li = document.createElement("div");
-                li.classList.add("track-item");
-                if(index === musicIndex) li.classList.add("active");
-                li.setAttribute("onclick", `playSongFromList(${index})`);
-                
-                li.innerHTML = `
-                    <div class="track-img" style="background-image: url('${song.img}'); background-size: cover;"></div>
-                    <div class="track-info">
-                        <div class="track-title">${song.name}</div>
-                        <div class="track-artist">${song.artist}</div>
-                    </div>
-                    <div class="music-wave">
-                        <i class="fas fa-chart-bar" style="color:var(--primary)"></i>
-                    </div>
-                `;
-                playlistDiv.appendChild(li);
-            });
+        // --- HELPER: Format Waktu (MM:SS) ---
+        function formatTime(seconds) {
+            let min = Math.floor(seconds / 60);
+            let sec = Math.floor(seconds % 60);
+            if (sec < 10) { sec = `0${sec}`; }
+            return `${min}:${sec}`;
         }
 
         // --- MUSIC FUNCTIONS ---
         function loadMusic(index) {
             trackName.innerText = songs[index].name;
             artistName.innerText = songs[index].artist;
-            albumArt.src = songs[index].img;
+            mainAlbumArt.src = songs[index].img;
             mainAudio.src = songs[index].src;
-            loadPlaylist(); // Refresh active class
+            
+            // Reset loading duration display
+            totalDurationSpan.innerText = "Loading...";
+            
+            loadPlaylistUI();
+        }
+
+        function loadPlaylistUI() {
+            playlistDiv.innerHTML = "";
+            songs.forEach((song, index) => {
+                const div = document.createElement("div");
+                div.classList.add("track-item");
+                if(index === musicIndex) div.classList.add("active");
+                div.setAttribute("onclick", `playSongFromList(${index})`);
+                
+                div.innerHTML = `
+                    <div class="track-img" style="background-image: url('${song.img}');"></div>
+                    <div class="track-info">
+                        <h4>${song.name}</h4>
+                        <p>${song.artist}</p>
+                    </div>
+                    <div class="playing-indicator">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                `;
+                playlistDiv.appendChild(div);
+            });
         }
 
         function playMusic() {
-            albumArtDiv.classList.add("playing");
+            albumArtWrapper.classList.add("playing");
             playPauseBtn.querySelector("i").className = "fas fa-pause";
-            mainAudio.play().catch(e => console.log("Autoplay blocked, waiting for interaction"));
+            mainAudio.play().catch(e => console.log("Playback prevented. User interaction needed."));
         }
 
         function pauseMusic() {
-            albumArtDiv.classList.remove("playing");
+            albumArtWrapper.classList.remove("playing");
             playPauseBtn.querySelector("i").className = "fas fa-play";
             mainAudio.pause();
         }
 
-        function nextMusic() {
+        function nextSong() {
             musicIndex++;
             if(musicIndex > songs.length - 1) musicIndex = 0;
             loadMusic(musicIndex);
             playMusic();
         }
 
-        function prevMusic() {
+        function prevSong() {
             musicIndex--;
             if(musicIndex < 0) musicIndex = songs.length - 1;
             loadMusic(musicIndex);
@@ -579,92 +572,130 @@
             playMusic();
         }
 
-        // --- EVENT LISTENERS ---
+        // --- EVENT LISTENERS MUSIC ---
         playPauseBtn.addEventListener("click", () => {
-            const isMusicPaused = albumArtDiv.classList.contains("playing");
-            isMusicPaused ? pauseMusic() : playMusic();
+            const isMusicPaused = mainAudio.paused;
+            isMusicPaused ? playMusic() : pauseMusic();
         });
+        nextBtn.addEventListener("click", nextSong);
+        prevBtn.addEventListener("click", prevSong);
+        mainAudio.addEventListener("ended", nextSong);
 
-        nextBtn.addEventListener("click", nextMusic);
-        prevBtn.addEventListener("click", prevMusic);
-
+        // Update Progress & Time Display Real-time
         mainAudio.addEventListener("timeupdate", (e) => {
             const currentTime = e.target.currentTime;
             const duration = e.target.duration;
-            let progressWidth = (currentTime / duration) * 100;
-            progressBar.style.width = `${progressWidth}%`;
+            
+            if(duration) {
+                 let progressWidth = (currentTime / duration) * 100;
+                 progressBar.style.width = `${progressWidth}%`;
+                 
+                 // Update text waktu
+                 currentTimeSpan.innerText = formatTime(currentTime);
+                 totalDurationSpan.innerText = formatTime(duration);
+            }
+        });
+        
+        // Saat metadata lagu termuat (untuk durasi awal)
+        mainAudio.addEventListener("loadeddata", () => {
+            totalDurationSpan.innerText = formatTime(mainAudio.duration);
         });
 
-        mainAudio.addEventListener("ended", nextMusic);
-
+        // Click on Progress Bar
         progressArea.addEventListener("click", (e) => {
             let progressWidth = progressArea.clientWidth; 
             let clickedOffsetX = e.offsetX; 
             let songDuration = mainAudio.duration; 
-            
             mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
             playMusic();
         });
 
-        // --- NAVIGATION NAVIGATION ---
+        // --- NAVIGATION SYSTEM ---
         function nextSection(id) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(sec => {
+            // 1. Hide all sections currently active
+            const activeSections = document.querySelectorAll('.section.active');
+            activeSections.forEach(sec => {
                 sec.classList.remove('active');
+                // Wait for transition to finish before hiding
                 setTimeout(() => {
-                    if(!sec.classList.contains('active')) sec.style.display = 'none';
-                }, 500);
+                     sec.style.display = 'none';
+                }, 800);
             });
 
-            // Show target section with delay
+            // 2. Show target section
             setTimeout(() => {
                 const target = document.getElementById(id);
-                target.style.display = 'block';
-                // Trigger reflow
-                void target.offsetWidth; 
-                target.classList.add('active');
-                
-                // If moving to music section, try autoplay
-                if(id === 'sec-music' && mainAudio.paused) {
-                    playMusic();
-                }
-            }, 500);
+                if(target) {
+                    target.style.display = 'flex'; // Use flex for centering
+                    // Force reflow
+                    void target.offsetWidth; 
+                    target.classList.add('active');
+                    
+                    // Auto-scroll to top for mobile experience
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Confetti effect on transition
-            createConfetti();
+                    // Special Effects based on section
+                    if(id === 'sec-music' && mainAudio.paused) {
+                        // Optional: Auto play music when entering music section
+                        // playMusic(); 
+                    }
+
+                    if(id === 'sec-finish') {
+                        triggerFinalConfetti();
+                    } else {
+                        triggerTransitionConfetti();
+                    }
+                }
+            }, 800); // Delay must match CSS transition time
         }
 
-        // --- CONFETTI EFFECT ---
-        function createConfetti() {
-            const colors = ['#ff85c1', '#ffadd6', '#ffffff', '#ffd700'];
-            for(let i=0; i<30; i++) {
+        // --- CONFETTI EFFECTS (Visual Polish) ---
+        function triggerTransitionConfetti() {
+            createConfetti(30, ['#ff7eb3', '#ff758c', '#fff'], 1500);
+        }
+
+        function triggerFinalConfetti() {
+            // Lebih banyak, lebih lama, warna emas untuk finish
+            createConfetti(100, ['#FFD700', '#ffb347', '#ff7eb3', '#ffffff'], 4000);
+            setTimeout(() => {
+                 createConfetti(50, ['#FFD700', '#fff'], 3000);
+            }, 1000);
+        }
+
+        function createConfetti(amount, colors, duration) {
+            for(let i=0; i<amount; i++) {
                 const conf = document.createElement('div');
                 conf.style.position = 'fixed';
-                conf.style.width = Math.random() * 10 + 5 + 'px';
-                conf.style.height = Math.random() * 10 + 5 + 'px';
+                conf.style.width = Math.random() * 12 + 6 + 'px';
+                conf.style.height = Math.random() * 12 + 6 + 'px';
                 conf.style.background = colors[Math.floor(Math.random() * colors.length)];
                 conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.top = '-10px';
+                conf.style.top = '-20px';
                 conf.style.zIndex = '9999';
-                conf.style.borderRadius = '50%';
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'; // Circle or square
                 conf.style.pointerEvents = 'none';
+                conf.style.filter = 'drop-shadow(0 2px 5px rgba(0,0,0,0.2))';
                 document.body.appendChild(conf);
 
                 const anim = conf.animate([
-                    { transform: `translateY(0) rotate(0)`, opacity: 1 },
-                    { transform: `translateY(100vh) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                    { transform: `translateY(0) rotate(0) scale(1)`, opacity: 1 },
+                    { transform: `translateY(${Math.random() * 20 + 80}vh) rotate(${Math.random()*720}deg) scale(0.5)`, opacity: 0 }
                 ], {
-                    duration: Math.random() * 2000 + 1000,
-                    easing: 'linear'
+                    duration: Math.random() * duration + 1500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 });
 
                 anim.onfinish = () => conf.remove();
             }
         }
 
-        // --- INITIALIZATION ---
+        // --- INITIAL LOAD ---
         window.addEventListener("load", () => {
             loadMusic(musicIndex);
+            // Ensure only hero is visible initially
+            document.querySelectorAll('.section').forEach(sec => {
+                if(sec.id !== 'sec-hero') sec.style.display = 'none';
+            });
         });
 
     </script>
