@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Favorite Person!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & VARIABLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #ff85c1;
+            --secondary: #ffadd6;
+            --accent: #ffebf5;
+            --dark: #6e2e48;
+            --glass: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --shadow: 0 8px 32px 0 rgba(255, 100, 150, 0.2);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            background-image: radial-gradient(circle at 10% 20%, rgb(255, 228, 240) 0%, rgb(232, 232, 255) 90%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND STICKERS (Kirby, Potato, etc) --- */
+        .sticker-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.6;
+            animation: floatAni 10s infinite ease-in-out;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        /* Posisi Stiker Random */
+        .s1 { top: 10%; left: 5%; animation-delay: 0s; } /* Kirby-ish */
+        .s2 { top: 20%; right: 10%; animation-delay: 2s; font-size: 2rem; } /* Potato */
+        .s3 { bottom: 15%; left: 8%; animation-delay: 4s; } /* Cat */
+        .s4 { bottom: 25%; right: 5%; animation-delay: 1s; } /* Love */
+        .s5 { top: 50%; left: 2%; animation-delay: 3s; font-size: 1.8rem; } /* Axolotl */
+        .s6 { top: 15%; left: 50%; animation-delay: 5s; } /* Cake */
+        .s7 { bottom: 5%; right: 30%; animation-delay: 2.5s; } /* Gecko */
+        .s8 { top: 40%; right: 2%; animation-delay: 1.5s; } /* Chinchilla */
+
+        @keyframes floatAni {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 600px; /* Mobile First View like an App */
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* --- SECTIONS TRANSITION --- */
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-top: 5vh;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff3399, #a64dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .avatar-glow {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 133, 193, 0.5);
+            position: relative;
+        }
+
+        .avatar-glow img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary);
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            background: linear-gradient(90deg, #ff85c1, #ff66b2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 102, 178, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 178, 0.6);
+        }
+
+        /* --- SPOTIFY STYLE PLAYER --- */
+        .spotify-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        .player-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .album-art {
+            width: 200px;
+            height: 200px;
+            background: #ddd;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .album-art img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 10s linear;
+        }
+        
+        .album-art.playing img {
+            transform: scale(1.1);
+        }
+
+        .song-info h2 { font-size: 1.5rem; color: var(--dark); margin-bottom: 5px; }
+        .song-info p { font-size: 1rem; color: #888; }
+
+        .progress-area {
+            height: 6px;
+            background: #ffd1e8;
+            border-radius: 50px;
+            margin: 20px 0 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--dark);
+            border-radius: 50px;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            right: -5px; top: -4px;
+            width: 14px; height: 14px;
+            background: var(--dark);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .progress-area:hover .progress-bar::after { opacity: 1; }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        .controls i {
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .controls i:hover { color: var(--dark); }
+
+        .play-pause {
+            width: 60px; height: 60px;
+            background: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(110, 46, 72, 0.3);
+        }
+
+        .play-pause i { color: white; font-size: 1.8rem; }
+
+        /* Playlist Items */
+        .playlist {
+            margin-top: 30px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .playlist::-webkit-scrollbar { width: 4px; }
+        .playlist::-webkit-scrollbar-thumb { background: #ffadd6; border-radius: 4px; }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 5px;
+        }
+
+        .track-item:hover { background: rgba(255, 133, 193, 0.1); }
+        .track-item.active { background: rgba(255, 133, 193, 0.2); }
+        .track-item.active .track-title { color: var(--dark); font-weight: 700; }
+
+        .track-img { width: 40px; height: 40px; border-radius: 8px; margin-right: 15px; background: #eee; }
+        .track-info { flex: 1; }
+        .track-title { font-size: 0.95rem; font-weight: 600; color: #555; }
+        .track-artist { font-size: 0.8rem; color: #999; }
+        .music-wave { height: 20px; width: 20px; display: none; }
+        .track-item.active .music-wave { display: block; }
+
+        /* --- GALLERY SECTION (POLAROID) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: all 0.3s;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .polaroid:nth-child(even) { transform: rotate(2deg); margin-top: 20px; }
+        .polaroid:hover { transform: scale(1.05) rotate(0) !important; z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #eee;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #444;
+        }
+        
+        .gallery-intro {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-intro h2 {
+            font-family: 'Dancing Script';
+            font-size: 3rem;
+            color: var(--dark);
+        }
+
+        /* --- FOOTER --- */
+        .final-message {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Custom Emoji CSS for Specific Requirements */
+        .kirby-style { filter: hue-rotate(280deg); } 
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .hero-card { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticker-container">
+        <div class="sticker s1">('^')></div> <div class="sticker s2">🥔</div> <div class="sticker s3">🐈</div> <div class="sticker s4">❤️</div> <div class="sticker s5">🦎</div> <div class="sticker s6">🎂</div> <div class="sticker s7">🦉</div> <div class="sticker s8">🍫</div> <div class="sticker s1" style="top:80%; left:80%">🐀</div> </div>
+
+    <div class="main-wrapper">
+        
+        <div class="section active" id="sec-hero">
+            <div class="hero-card">
+                <div class="avatar-glow">
+                    <img src="https://ui-avatars.com/api/?name=Princess&background=ffadd6&color=fff&size=200" alt="Profile" id="mainPhoto">
+                </div>
+                <h1>Happy Birthday!</h1>
+                <p class="hero-text">Untuk wanita paling istimewa yang kepribadiannya sehangat musim semi dan semanis cokelat. 🌸🥔✨</p>
+                
+                <div style="margin: 20px 0; font-size: 2rem;">
+                    <i class="fas fa-crown" style="color: gold;"></i>
+                </div>
+
+                <button class="btn-primary" onclick="nextSection('sec-music')">
+                    Buka Hadiah Musik <i class="fas fa-music"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="section" id="sec-music">
+            <div class="spotify-card">
+                <div class="player-header">
+                    <span>PLAYING FROM YOUR HEART</span>
+                    <h3 style="margin-top:5px; font-weight:600;">Birthday Mixtape <i class="fas fa-heart" style="color:var(--primary)"></i></h3>
+                </div>
+
+                <div class="album-art" id="albumArt">
+                    <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=400&auto=format&fit=crop" alt="Album Art">
+                </div>
+
+                <div class="song-info" style="text-align: center;">
+                    <h2 id="trackName">Seasons</h2>
+                    <p id="artistName">Wave to Earth</p>
+                </div>
+
+                <div class="progress-area" id="progressArea">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="controls">
+                    <i class="fas fa-random"></i>
+                    <i class="fas fa-step-backward" id="prevBtn"></i>
+                    <div class="play-pause" id="playPauseBtn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <i class="fas fa-step-forward" id="nextBtn"></i>
+                    <i class="fas fa-redo"></i>
+                </div>
+
+                <div class="playlist" id="playlist">
+                    </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-primary" onclick="nextSection('sec-gallery')">
+                    Lihat Kenangan Kita <i class="fas fa-camera-retro"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="section" id="sec-gallery">
+            <div class="gallery-intro">
+                <h2>Galeri Cantik</h2>
+                <p>Kumpulan potret favoritku tentangmu</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="polaroid">
+                    <img src="assets/photo/Si Alex Kurang Ajar.jpg" alt="Foto 1">
+                    <div class="caption">Alex Kurang Ajar 😡</div>
+                </div>
+                
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop" alt="Foto 2">
+                    <div class="caption">Estetik parah!</div>
+                </div>
+
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=300&auto=format&fit=crop" alt="Foto 3">
+                    <div class="caption">My Potato <3</div>
+                </div>
+                
+                 <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" alt="Foto 4">
+                    <div class="caption">Kesayangan</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <h3 style="color: var(--dark); margin-bottom: 15px; font-family:'Dancing Script'; font-size: 2rem;">Harapanku...</h3>
+                <p>Semoga di usiamu yang baru ini, kamu semakin bersinar seperti bintang, semakin kuat menjalani hari, dan tetap menjadi rumah ternyaman untuk pulang.</p>
+                <p style="margin-top: 15px; font-weight: bold;">I Love You! ❤️</p>
+                
+                <br>
+                <button class="btn-primary" onclick="location.reload()">
+                    Ulangi Lagi <i class="fas fa-undo"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <audio id="mainAudio"></audio>
+
+    <script>
+        const songs = [
+            {
+                name: "Love",
+                artist: "Wave to Earth",
+                img: "assets/album/wte.jpg", // Album Art URL
+                src: "music/love.mp3" // Default fallback, ganti dengan file mp3 wave to earth
+            },
+            {
+                name: "Sorrowful Reunion",
+                artist: "Reality Club",
+                img: "assets/album/sr.jpg",
+                src: "music/sorrowful.mp3"
+            },
+            {
+                name: "Understand",
+                artist: "Keshi",
+                img: "assets/album/keshi.jpg",
+                src: "music/understand.mp3"
+            },
+            {
+                name: "Terdiam",
+                artist: "Maliq & D'Essentials",
+                img: "assets/album/maliq.jpg",
+                src: "music/terdiam.mp3"
+            },
+            {
+                name: "Toronto 2014",
+                artist: "Daniel Caesar",
+                img: "assets/album/dc.jpg",
+                src: "music/toronto.mp3"
+            }
+        ];
+
+        // --- SELECTORS ---
+        const mainAudio = document.getElementById("mainAudio");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const progressArea = document.getElementById("progressArea");
+        const progressBar = document.getElementById("progressBar");
+        const trackName = document.getElementById("trackName");
+        const artistName = document.getElementById("artistName");
+        const albumArt = document.querySelector(".album-art img");
+        const albumArtDiv = document.querySelector(".album-art");
+        const playlistDiv = document.getElementById("playlist");
+
+        let musicIndex = 0;
+
+        // --- LOAD PLAYLIST TO UI ---
+        function loadPlaylist() {
+            playlistDiv.innerHTML = "";
+            songs.forEach((song, index) => {
+                const li = document.createElement("div");
+                li.classList.add("track-item");
+                if(index === musicIndex) li.classList.add("active");
+                li.setAttribute("onclick", `playSongFromList(${index})`);
+                
+                li.innerHTML = `
+                    <div class="track-img" style="background-image: url('${song.img}'); background-size: cover;"></div>
+                    <div class="track-info">
+                        <div class="track-title">${song.name}</div>
+                        <div class="track-artist">${song.artist}</div>
+                    </div>
+                    <div class="music-wave">
+                        <i class="fas fa-chart-bar" style="color:var(--primary)"></i>
+                    </div>
+                `;
+                playlistDiv.appendChild(li);
+            });
+        }
+
+        // --- MUSIC FUNCTIONS ---
+        function loadMusic(index) {
+            trackName.innerText = songs[index].name;
+            artistName.innerText = songs[index].artist;
+            albumArt.src = songs[index].img;
+            mainAudio.src = songs[index].src;
+            loadPlaylist(); // Refresh active class
+        }
+
+        function playMusic() {
+            albumArtDiv.classList.add("playing");
+            playPauseBtn.querySelector("i").className = "fas fa-pause";
+            mainAudio.play().catch(e => console.log("Autoplay blocked, waiting for interaction"));
+        }
+
+        function pauseMusic() {
+            albumArtDiv.classList.remove("playing");
+            playPauseBtn.querySelector("i").className = "fas fa-play";
+            mainAudio.pause();
+        }
+
+        function nextMusic() {
+            musicIndex++;
+            if(musicIndex > songs.length - 1) musicIndex = 0;
+            loadMusic(musicIndex);
+            playMusic();
+        }
+
+        function prevMusic() {
+            musicIndex--;
+            if(musicIndex < 0) musicIndex = songs.length - 1;
+            loadMusic(musicIndex);
+            playMusic();
+        }
+
+        function playSongFromList(index) {
+            musicIndex = index;
+            loadMusic(musicIndex);
+            playMusic();
+        }
+
+        // --- EVENT LISTENERS ---
+        playPauseBtn.addEventListener("click", () => {
+            const isMusicPaused = albumArtDiv.classList.contains("playing");
+            isMusicPaused ? pauseMusic() : playMusic();
+        });
+
+        nextBtn.addEventListener("click", nextMusic);
+        prevBtn.addEventListener("click", prevMusic);
+
+        mainAudio.addEventListener("timeupdate", (e) => {
+            const currentTime = e.target.currentTime;
+            const duration = e.target.duration;
+            let progressWidth = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressWidth}%`;
+        });
+
+        mainAudio.addEventListener("ended", nextMusic);
+
+        progressArea.addEventListener("click", (e) => {
+            let progressWidth = progressArea.clientWidth; 
+            let clickedOffsetX = e.offsetX; 
+            let songDuration = mainAudio.duration; 
+            
+            mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
+            playMusic();
+        });
+
+        // --- NAVIGATION NAVIGATION ---
+        function nextSection(id) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+                setTimeout(() => {
+                    if(!sec.classList.contains('active')) sec.style.display = 'none';
+                }, 500);
+            });
+
+            // Show target section with delay
+            setTimeout(() => {
+                const target = document.getElementById(id);
+                target.style.display = 'block';
+                // Trigger reflow
+                void target.offsetWidth; 
+                target.classList.add('active');
+                
+                // If moving to music section, try autoplay
+                if(id === 'sec-music' && mainAudio.paused) {
+                    playMusic();
+                }
+            }, 500);
+
+            // Confetti effect on transition
+            createConfetti();
+        }
+
+        // --- CONFETTI EFFECT ---
+        function createConfetti() {
+            const colors = ['#ff85c1', '#ffadd6', '#ffffff', '#ffd700'];
+            for(let i=0; i<30; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.width = Math.random() * 10 + 5 + 'px';
+                conf.style.height = Math.random() * 10 + 5 + 'px';
+                conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.zIndex = '9999';
+                conf.style.borderRadius = '50%';
+                conf.style.pointerEvents = 'none';
+                document.body.appendChild(conf);
+
+                const anim = conf.animate([
+                    { transform: `translateY(0) rotate(0)`, opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'linear'
+                });
+
+                anim.onfinish = () => conf.remove();
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener("load", () => {
+            loadMusic(musicIndex);
+        });
+
+    </script>
+</body>
+</html>
