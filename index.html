@@ -22,13 +22,12 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            /* Animated Gradient Background */
             background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #a1c4fd);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: var(--text-dark);
             min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scrollbar */
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -49,37 +48,36 @@
 
         .sticker {
             position: absolute;
-            width: 80px; /* Adjust size of chibis */
+            width: 80px;
             height: auto;
             opacity: 0.8;
             filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
             animation: floatAni 12s infinite ease-in-out;
         }
 
-        /* Random Positions & Delays for Natural Float */
-        .s1 { top: 10%; left: 5%; animation-delay: 0s; width: 90px; } /* Axolotl */
-        .s2 { top: 25%; right: 8%; animation-delay: 2s; } /* Sheep */
-        .s3 { bottom: 20%; left: 10%; animation-delay: 4s; width: 100px; } /* Cat */
-        .s4 { bottom: 30%; right: 15%; animation-delay: 1s; width: 70px;} /* Banana Cat */
-        .s5 { top: 55%; left: 5%; animation-delay: 3s; width: 60px; } /* Frog */
-        .s6 { top: 15%; left: 50%; animation-delay: 5s; opacity: 0.6; } /* Extra deco */
+        .s1 { top: 10%; left: 5%; animation-delay: 0s; width: 90px; }
+        .s2 { top: 25%; right: 8%; animation-delay: 2s; }
+        .s3 { bottom: 20%; left: 10%; animation-delay: 4s; width: 100px; }
+        .s4 { bottom: 30%; right: 15%; animation-delay: 1s; width: 70px;}
+        .s5 { top: 55%; left: 5%; animation-delay: 3s; width: 60px; }
+        .s6 { top: 15%; left: 50%; animation-delay: 5s; opacity: 0.6; }
         
         @keyframes floatAni {
             0%, 100% { transform: translateY(0) rotate(-5deg) scale(1); }
             50% { transform: translateY(-40px) rotate(5deg) scale(1.05); }
         }
 
-        /* --- MAIN LAYOUT & SHARED COMPONENTS --- */
+        /* --- MAIN LAYOUT --- */
         .main-wrapper {
             position: relative;
             z-index: 2;
-            max-width: 550px; /* App-like feeling */
+            max-width: 550px;
             margin: 0 auto;
             padding: 20px;
             padding-bottom: 120px;
             min-height: 100vh;
             display: flex;
-            align-items: center; /* Center vertically if single section */
+            align-items: center;
         }
 
         .glass-card {
@@ -91,6 +89,7 @@
             padding: 35px 25px;
             box-shadow: var(--card-shadow);
             width: 100%;
+            transition: all 0.5s ease;
         }
 
         /* Section Transitions */
@@ -161,9 +160,7 @@
             box-shadow: 0 12px 25px -5px rgba(255, 117, 140, 0.7);
         }
 
-        /* --- SECTION SPECIFIC STYLES --- */
-
-        /* Hero */
+        /* --- HERO & GENERAL --- */
         .avatar-glow-container {
             position: relative;
             width: 180px; height: 180px; margin: 0 auto 25px;
@@ -181,7 +178,7 @@
             transform: rotate(15deg);
         }
 
-        /* Music Player */
+        /* --- MUSIC PLAYER --- */
         .album-art-wrapper {
             width: 220px; height: 220px; margin: 20px auto;
             border-radius: 25px; overflow: hidden;
@@ -194,7 +191,6 @@
         }
         .album-art-wrapper.playing img { transform: scale(1.1); }
 
-        /* Music Time Progress */
         .progress-container {
             display: flex; align-items: center; justify-content: center;
             gap: 10px; margin: 25px 0 10px;
@@ -208,15 +204,6 @@
             height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 50px; position: relative; transition: width 0.1s linear;
         }
-        .progress-bar::after {
-            content: ''; position: absolute; right: -6px; top: -50%; transform: translateY(50%);
-            width: 16px; height: 16px; background: var(--secondary);
-            border: 3px solid white; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            opacity: 0; transition: opacity 0.2s;
-        }
-        .progress-area:hover .progress-bar::after { opacity: 1; }
-
-        /* Controls */
         .controls {
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 15px; margin-top: 20px;
@@ -230,7 +217,6 @@
         }
         .play-pause-btn i { color: white; font-size: 1.8rem; margin-left: 3px; }
 
-        /* Playlist */
         .playlist { margin-top: 25px; max-height: 180px; overflow-y: auto; padding-right: 5px; }
         .playlist::-webkit-scrollbar { width: 4px; }
         .playlist::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
@@ -241,13 +227,12 @@
         }
         .track-item.active { background: white; box-shadow: 0 5px 15px rgba(255, 126, 179, 0.15); }
         .track-img { width: 45px; height: 45px; border-radius: 10px; margin-right: 15px; background-size: cover; }
-        .track-info { flex: 1; }
         .track-info h4 { font-size: 0.95rem; margin-bottom: 2px; color: var(--text-dark); }
         .track-info p { font-size: 0.8rem; color: #666; }
         .playing-indicator { color: var(--primary); display: none; animation: pulse 1.5s infinite; }
         .track-item.active .playing-indicator { display: block; }
 
-        /* Gallery */
+        /* --- GALLERY --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px;
         }
@@ -264,7 +249,159 @@
             font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #555;
         }
 
-        /* --- FINISH SECTION (The Grand Finale) --- */
+        /* --- CAKE SECTION (BEAUTIFIED) --- */
+        #sec-cake .glass-card {
+            /* Sedikit lebih gelap untuk membuat kue lebih menonjol */
+            background: rgba(255, 255, 255, 0.65);
+        }
+
+        .cake-container-wrapper {
+            position: relative;
+            /* Memberikan "aura" fokus di sekitar kue */
+            filter: drop-shadow(0 0 30px rgba(255, 220, 100, 0.4));
+            z-index: 10;
+        }
+
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 40px auto 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 120px;
+            background: #f8c2d3;
+            /* Menambahkan tekstur "sprinkles" */
+            background-image: radial-gradient(#ff758c 15%, transparent 16%),
+                              radial-gradient(#f6d365 15%, transparent 16%),
+                              radial-gradient(#a1c4fd 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px, 5px 15px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 
+                inset 0 -15px rgba(0,0,0,0.05),
+                0 10px 20px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        
+        /* Icing Top */
+        .cake-icing {
+            position: absolute;
+            background: #fff0f5;
+            width: 104%;
+            left: -2%;
+            height: 45px;
+            top: -5px;
+            border-radius: 15px 15px 30px 30px;
+            z-index: 3;
+            box-shadow: inset 0 5px 10px rgba(255,255,255,0.8);
+        }
+        
+        /* The glowing light cast on top of the cake from the flame */
+        .light-cast {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            background: radial-gradient(ellipse at center, rgba(255, 235, 59, 0.7) 0%, rgba(255, 152, 0, 0.2) 50%, transparent 80%);
+            z-index: 4;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+        .light-cast.off { opacity: 0; }
+
+        /* Plate */
+        .plate {
+            position: absolute;
+            bottom: -12px;
+            left: -35px;
+            width: 270px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15), inset 0 -3px #eee;
+            z-index: 1;
+        }
+
+        /* Candle */
+        .candle {
+            position: absolute;
+            top: -65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 55px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 4px, #ffb6c1 4px, #ffb6c1 8px);
+            border-radius: 4px;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .candle::before { /* Wicks */
+            content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 8px; background: #333; border-radius: 2px;
+        }
+
+        /* Flame */
+        .flame {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px; height: 30px;
+            background: linear-gradient(to bottom, #fff, #ffeb3b 40%, #ff9800 80%);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.8s infinite alternate ease-in-out;
+            box-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800, 0 0 50px rgba(255, 152, 0, 0.5);
+            transition: all 0.5s ease;
+            z-index: 6;
+        }
+        .flame.off { opacity: 0; transform: translateX(-50%) scale(0.5); }
+
+        /* Magic particles around the flame */
+        .magic-particle {
+            position: absolute;
+            background: gold;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: drop-shadow(0 0 5px gold);
+            z-index: 10;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 1; height: 30px; }
+            100% { transform: translateX(-52%) scale(1.1) rotate(3deg); opacity: 0.9; height: 32px; }
+        }
+
+        /* Smoke effect */
+        .smoke {
+            position: absolute;
+            top: -35px; left: 50%;
+            transform: translateX(-50%);
+            width: 12px; height: 20px;
+            background: rgba(150, 150, 150, 0.4);
+            border-radius: 50%;
+            filter: blur(3px);
+            opacity: 0;
+            z-index: 7;
+        }
+        .smoke.animate { animation: smokeRise 2s forwards ease-out; }
+        @keyframes smokeRise {
+            0% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            40% { opacity: 0.5; transform: translateX(-60%) translateY(-40px) scale(2.5); }
+            100% { opacity: 0; transform: translateX(-40%) translateY(-90px) scale(4); }
+        }
+
+        /* --- FINISH SECTION --- */
         .finish-content { text-align: center; padding: 40px 20px; }
         .big-number {
             font-size: 10rem; line-height: 1; font-weight: 700;
@@ -295,10 +432,9 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Responsive fixes */
         @media (max-width: 480px) {
             h1.dancing-font { font-size: 3rem; }
-            .gallery-grid { grid-template-columns: 1fr; /* Single column on small phones */ }
+            .gallery-grid { grid-template-columns: 1fr; }
             .polaroid img { height: 220px; }
             .big-number { font-size: 8rem; }
             .finish-name { font-size: 3.5rem; }
@@ -312,9 +448,8 @@
         <img src="assets/photo/2.png" class="sticker s2" alt="Fluffy Sheep">
         <img src="assets/photo/3.png" class="sticker s3" alt="Cat">
         <img src="assets/photo/4.png" class="sticker s4" alt="Banana Cat">
-        <img src="assets/photo/5.png" class="sticker s5" alt="Frog">
+        <img src="assets/photo/nono.png" class="sticker s5" alt="Frog">
         <img src="assets/photo/6.png" class="sticker s6" alt="Extra Deco">
-        <div class="sticker s6" style="font-size: 3rem;">✨</div>
     </div>
 
     <div class="main-wrapper">
@@ -323,11 +458,12 @@
             <div class="glass-card" style="text-align: center;">
                 <div class="avatar-glow-container">
                     <i class="fas fa-crown avatar-crown"></i>
-                    <img src="https://ui-avatars.com/api/?name=Seyyii&background=ffadd6&color=fff&size=200" alt="Seyyii Profile" class="avatar-glow">
+                    <img src="assets/photo/sei.png" alt="Seyyii Profile" class="avatar-glow">
                 </div>
                 <h1 class="dancing-font">Happy Birthday!</h1>
                 <p style="font-size: 1.2rem; color: #555; margin-bottom: 30px;">
-                    Untuk seseorang yang membuat duniaku lebih berwarna, lebih ceria, dan penuh dengan keajaiban. ✨🌸
+                    For someone who makes my life happier, colorful,
+and somehow makes me do silly things without me noticing yaawww ✨🌸
                 </p>
                 
                 <button class="btn-primary" onclick="nextSection('sec-music')">
@@ -370,8 +506,7 @@
                     <i class="fas fa-redo" title="Loop"></i>
                 </div>
 
-                <div class="playlist" id="playlist">
-                    </div>
+                <div class="playlist" id="playlist"></div>
 
                 <div class="btn-container">
                     <button class="btn-secondary" onclick="nextSection('sec-hero')">
@@ -388,25 +523,25 @@
             <div class="glass-card">
                 <div style="text-align: center;">
                     <h2 class="dancing-font" style="font-size: 3rem; color: var(--primary);">Aesthetic Memories</h2>
-                    <p>Kumpulan potret cantikmu yang kusuka.</p>
+                    <p>Kumpulan potret kamu (emang dikit sih)</p>
                 </div>
 
                 <div class="gallery-grid">
                     <div class="polaroid">
-                        <img src="https://images.unsplash.com/photo-1524638431109-93d95c968f03?q=80&w=300&auto=format&fit=crop" alt="Foto 1">
-                        <div class="caption">Senyum Manis :)</div>
+                        <img src="assets/photo/Si Alex Kurang Ajar.jpg" alt="Foto 1">
+                        <div class="caption">Alex Kurang Ajar 😡</div>
                     </div>
                     <div class="polaroid">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop" alt="Foto 2">
-                        <div class="caption">Vibesnya dapet bgt!</div>
+                        <img src="assets/photo/bird.jpeg" alt="Foto 2">
+                        <div class="caption">Aku juga mwww!</div>
                     </div>
                     <div class="polaroid">
-                        <img src="https://images.unsplash.com/photo-1606225457115-9b0de873c5db?q=80&w=300&auto=format&fit=crop" alt="Foto 3">
-                        <div class="caption">Lucu banget sihh <3</div>
+                        <img src="assets/photo/kocheng.jpeg" alt="Foto 3">
+                        <div class="caption">Kamu pas resee <3</div>
                     </div>
                      <div class="polaroid">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" alt="Foto 4">
-                        <div class="caption">My Favorite Person</div>
+                        <img src="assets/photo/image.png" alt="Foto 4">
+                        <div class="caption">My Fav Person</div>
                     </div>
                 </div>
 
@@ -414,8 +549,43 @@
                     <button class="btn-secondary" onclick="nextSection('sec-music')">
                         <i class="fas fa-arrow-left"></i> Musik
                     </button>
-                    <button class="btn-primary" style="background: linear-gradient(90deg, #FFD700, #ffb347);" onclick="nextSection('sec-finish')">
-                        Finish Surprise! <i class="fas fa-gift"></i>
+                    <button class="btn-primary" style="background: linear-gradient(90deg, #FFD700, #ffb347);" onclick="nextSection('sec-cake')">
+                        Next Surprise! <i class="fas fa-gift"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="sec-cake">
+            <div class="glass-card" style="text-align: center; position: relative; overflow: hidden;">
+                
+                <h2 class="dancing-font" style="font-size: 3rem; color: var(--primary); position:relative; z-index: 2;">Make a Wish!</h2>
+                <p style="font-size: 1.1rem; color: #555; position:relative; z-index: 2;">Tutup mata, ucapkan harapanmu di dalam hati... ✨</p>
+
+                <div class="cake-container-wrapper">
+                    <div class="cake-container">
+                        <div class="plate"></div>
+                        <div class="cake">
+                            <div class="cake-icing"></div>
+                             <div class="light-cast" id="lightCast"></div>
+                            <div class="candle">
+                                <div class="flame" id="flame"></div>
+                                <div class="smoke" id="smoke"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 1rem; color: #777; margin-bottom: 30px; position:relative; z-index: 2;">
+                    (Klik tombol di bawah untuk meniup lilin)
+                </p>
+
+                <div class="btn-container" style="position:relative; z-index: 2;">
+                     <button class="btn-secondary" onclick="nextSection('sec-gallery')">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </button>
+                    <button class="btn-primary" id="blowBtn" onclick="blowCandles()" style="background: linear-gradient(90deg, #FFD700, #ffb347); color: var(--text-dark);">
+                        Tiup Lilinnya! 💨
                     </button>
                 </div>
             </div>
@@ -450,8 +620,8 @@
             {
                 name: "Love",
                 artist: "Wave to Earth",
-                img: "assets/album/wte.jpg", // Album Art URL
-                src: "music/love.mp3" // Default fallback, ganti dengan file mp3 wave to earth
+                img: "assets/album/wte.jpg", 
+                src: "music/love.mp3" 
             },
             {
                 name: "Sorrowful Reunion",
@@ -491,13 +661,11 @@
         const mainAlbumArt = document.getElementById("mainAlbumArt");
         const albumArtWrapper = document.getElementById("albumArtWrapper");
         const playlistDiv = document.getElementById("playlist");
-        // New Time Selectors
         const currentTimeSpan = document.getElementById("currentTime");
         const totalDurationSpan = document.getElementById("totalDuration");
 
         let musicIndex = 0;
 
-        // --- HELPER: Format Waktu (MM:SS) ---
         function formatTime(seconds) {
             let min = Math.floor(seconds / 60);
             let sec = Math.floor(seconds % 60);
@@ -511,10 +679,7 @@
             artistName.innerText = songs[index].artist;
             mainAlbumArt.src = songs[index].img;
             mainAudio.src = songs[index].src;
-            
-            // Reset loading duration display
             totalDurationSpan.innerText = "Loading...";
-            
             loadPlaylistUI();
         }
 
@@ -543,7 +708,7 @@
         function playMusic() {
             albumArtWrapper.classList.add("playing");
             playPauseBtn.querySelector("i").className = "fas fa-pause";
-            mainAudio.play().catch(e => console.log("Playback prevented. User interaction needed."));
+            mainAudio.play().catch(e => console.log("Playback prevented"));
         }
 
         function pauseMusic() {
@@ -572,7 +737,6 @@
             playMusic();
         }
 
-        // --- EVENT LISTENERS MUSIC ---
         playPauseBtn.addEventListener("click", () => {
             const isMusicPaused = mainAudio.paused;
             isMusicPaused ? playMusic() : pauseMusic();
@@ -581,27 +745,21 @@
         prevBtn.addEventListener("click", prevSong);
         mainAudio.addEventListener("ended", nextSong);
 
-        // Update Progress & Time Display Real-time
         mainAudio.addEventListener("timeupdate", (e) => {
             const currentTime = e.target.currentTime;
             const duration = e.target.duration;
-            
             if(duration) {
                  let progressWidth = (currentTime / duration) * 100;
                  progressBar.style.width = `${progressWidth}%`;
-                 
-                 // Update text waktu
                  currentTimeSpan.innerText = formatTime(currentTime);
                  totalDurationSpan.innerText = formatTime(duration);
             }
         });
         
-        // Saat metadata lagu termuat (untuk durasi awal)
         mainAudio.addEventListener("loadeddata", () => {
             totalDurationSpan.innerText = formatTime(mainAudio.duration);
         });
 
-        // Click on Progress Bar
         progressArea.addEventListener("click", (e) => {
             let progressWidth = progressArea.clientWidth; 
             let clickedOffsetX = e.offsetX; 
@@ -610,56 +768,115 @@
             playMusic();
         });
 
+        // --- NEW: BLOW CANDLE LOGIC & MAGIC PARTICLES ---
+        let magicInterval;
+
+        function createMagicParticles() {
+            const cakeSection = document.getElementById('sec-cake');
+            if (!cakeSection.classList.contains('active')) return;
+            
+            const candle = document.querySelector('.candle');
+            const rect = candle.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top;
+
+            const particle = document.createElement('div');
+            particle.classList.add('magic-particle');
+            document.body.appendChild(particle);
+
+            const size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${centerX}px`;
+            particle.style.top = `${centerY}px`;
+            
+            const destinationX = centerX + (Math.random() - 0.5) * 100;
+            const destinationY = centerY - Math.random() * 150;
+            const rotate = Math.random() * 360;
+
+            const anim = particle.animate([
+                { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${destinationX - centerX}px, ${destinationY - centerY}px) rotate(${rotate}deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 2000 + 1000,
+                easing: 'cubic-bezier(0, .9, .57, 1)'
+            });
+
+            anim.onfinish = () => particle.remove();
+        }
+
+        function blowCandles() {
+            const flame = document.getElementById('flame');
+            const smoke = document.getElementById('smoke');
+            const lightCast = document.getElementById('lightCast'); // Get light cast element
+            const btn = document.getElementById('blowBtn');
+
+            if(magicInterval) clearInterval(magicInterval); // Stop magic particles
+
+            // 1. Matikan api dan cahaya
+            flame.classList.add('off');
+            lightCast.classList.add('off');
+            
+            // 2. Munculkan asap
+            smoke.classList.add('animate');
+
+            // 3. Ubah teks tombol
+            btn.innerHTML = "Yeeeey! 🎉";
+            btn.style.background = "#4CAF50"; 
+            btn.style.color = "#fff";
+
+            // 4. Delay sebentar lalu pindah ke Finish
+            setTimeout(() => {
+                nextSection('sec-finish');
+            }, 2500); 
+        }
+
         // --- NAVIGATION SYSTEM ---
         function nextSection(id) {
-            // 1. Hide all sections currently active
+            if(magicInterval) clearInterval(magicInterval); // Stop magic if leaving section
+
             const activeSections = document.querySelectorAll('.section.active');
             activeSections.forEach(sec => {
                 sec.classList.remove('active');
-                // Wait for transition to finish before hiding
-                setTimeout(() => {
-                     sec.style.display = 'none';
-                }, 800);
+                setTimeout(() => { sec.style.display = 'none'; }, 800);
             });
 
-            // 2. Show target section
             setTimeout(() => {
                 const target = document.getElementById(id);
                 if(target) {
-                    target.style.display = 'flex'; // Use flex for centering
-                    // Force reflow
+                    target.style.display = 'flex'; 
                     void target.offsetWidth; 
                     target.classList.add('active');
-                    
-                    // Auto-scroll to top for mobile experience
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                    // Special Effects based on section
-                    if(id === 'sec-music' && mainAudio.paused) {
-                        // Optional: Auto play music when entering music section
-                        // playMusic(); 
-                    }
 
                     if(id === 'sec-finish') {
                         triggerFinalConfetti();
+                    } else if (id === 'sec-cake') {
+                        // Reset candle & magic if revisiting
+                        document.getElementById('flame').classList.remove('off');
+                        document.getElementById('lightCast').classList.remove('off');
+                        document.getElementById('smoke').classList.remove('animate');
+                        const blowBtn = document.getElementById('blowBtn');
+                        blowBtn.innerHTML = "Tiup Lilinnya! 💨";
+                        blowBtn.style.background = "linear-gradient(90deg, #FFD700, #ffb347)"; 
+                        blowBtn.style.color = "var(--text-dark)";
+                        triggerTransitionConfetti();
+                        // Start magic particles
+                        magicInterval = setInterval(createMagicParticles, 200);
                     } else {
                         triggerTransitionConfetti();
                     }
                 }
-            }, 800); // Delay must match CSS transition time
+            }, 800); 
         }
 
-        // --- CONFETTI EFFECTS (Visual Polish) ---
         function triggerTransitionConfetti() {
             createConfetti(30, ['#ff7eb3', '#ff758c', '#fff'], 1500);
         }
 
         function triggerFinalConfetti() {
-            // Lebih banyak, lebih lama, warna emas untuk finish
             createConfetti(100, ['#FFD700', '#ffb347', '#ff7eb3', '#ffffff'], 4000);
-            setTimeout(() => {
-                 createConfetti(50, ['#FFD700', '#fff'], 3000);
-            }, 1000);
+            setTimeout(() => { createConfetti(50, ['#FFD700', '#fff'], 3000); }, 1000);
         }
 
         function createConfetti(amount, colors, duration) {
@@ -672,7 +889,7 @@
                 conf.style.left = Math.random() * 100 + 'vw';
                 conf.style.top = '-20px';
                 conf.style.zIndex = '9999';
-                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'; // Circle or square
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 conf.style.pointerEvents = 'none';
                 conf.style.filter = 'drop-shadow(0 2px 5px rgba(0,0,0,0.2))';
                 document.body.appendChild(conf);
@@ -689,10 +906,8 @@
             }
         }
 
-        // --- INITIAL LOAD ---
         window.addEventListener("load", () => {
             loadMusic(musicIndex);
-            // Ensure only hero is visible initially
             document.querySelectorAll('.section').forEach(sec => {
                 if(sec.id !== 'sec-hero') sec.style.display = 'none';
             });
